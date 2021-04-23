@@ -8,6 +8,14 @@ spring:
           url: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
+        - id: user-service
+          url: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\
 
 eureka:
   client:
